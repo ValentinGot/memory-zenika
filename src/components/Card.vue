@@ -12,8 +12,6 @@ const emit = defineEmits({
 
 function onCardFlip() {
   if (props.card.visibility === CardVisibility.FRONT) {
-    props.card.visibility = CardVisibility.BACK;
-
     emit('cardFlip', props.card)
   }
 }

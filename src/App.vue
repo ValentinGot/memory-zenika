@@ -10,8 +10,8 @@ let _flippedCards: CardInterface[] = [];
 
 function onCardFlip(card: CardInterface) {
   if (_flippedCards.length < 2) {
+    card.visibility = CardVisibility.BACK;
     _flippedCards.push(card);
-  }
 
   if (_flippedCards.length === 2) {
     if (_flippedCards[0].hobby === _flippedCards[1].hobby) {
@@ -20,16 +20,21 @@ function onCardFlip(card: CardInterface) {
         _flippedCards[1].found = true;
         _flippedCards = [];
 
-        if (_allCardsFounds()) {
-          alert('Yeah !! You won !');
-        }
-      }, 700);
-    } else {
-      setTimeout(() => {
-        _flippedCards[0].visibility = CardVisibility.FRONT;
-        _flippedCards[1].visibility = CardVisibility.FRONT;
-        _flippedCards = [];
-      }, 1000);
+          _flippedCards[0].found = true;
+          _flippedCards[1].found = true;
+          _flippedCards = [];
+
+          if (_allCardsFounds()) {
+            alert('Yeah !! You won !');
+          }
+        }, 700);
+      } else {
+        setTimeout(() => {
+          _flippedCards[0].visibility = CardVisibility.FRONT;
+          _flippedCards[1].visibility = CardVisibility.FRONT;
+          _flippedCards = [];
+        }, 1000);
+      }
     }
   }
 }
