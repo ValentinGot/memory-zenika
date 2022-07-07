@@ -1,21 +1,76 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import { computed, reactive } from 'vue';
+import { cardsDatasource } from './data/cards.datasource';
+import { CardInterface } from './types/CardInterface';
+import { CardVisibility } from './types/CardVisibility';
+
+const cards = reactive<CardInterface[]>(cardsDatasource);
+
+const randomCards = computed(() => cards.sort(() => 0.5 - Math.random()));
+
+let flippedCards: CardInterface[] = [];
+function onCardFlip(card: CardInterface) {
+  if (flippedCards.length < 2) {
+    card.visibility = card.visibility === CardVisibility.FRONT ? CardVisibility.BACK : CardVisibility.FRONT;
+    flippedCards.push(card);
+
+    if (flippedCards.length === 2) {
+      if (flippedCards[0].type === flippedCards[1].type) {
+        setTimeout(() => {
+          flippedCards[0].found = true;
+          flippedCards[1].found = true;
+          flippedCards = [];
+
+          console.log(allCardsFounds());
+        }, 700);
+      } else {
+        setTimeout(() => {
+          flippedCards[0].visibility = CardVisibility.FRONT;
+          flippedCards[1].visibility = CardVisibility.FRONT;
+          flippedCards = [];
+        }, 1000);
+      }
+    }
+  }
+}
+
+function allCardsFounds(): boolean {
+  return cards.reduce((acc, card) => acc && card.found, true);
+}
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <div class="cards">
+    <Card
+      v-for="card of randomCards"
+      :key="card.id"
+      :card="card"
+      @card-flip="onCardFlip"
+    ></Card>
+  </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped lang="scss">
+@import './assets/css/abstracts/breakpoints';
+
+$columns: 4;
+$gap: 20px;
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: $gap;
+  height: 100%;
+  padding: $gap;
+  overflow: hidden;
+
+  @include layout-bp('gt-md') {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @include layout-bp('gt-lg') {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
 }
 </style>
