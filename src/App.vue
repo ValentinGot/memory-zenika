@@ -15,13 +15,15 @@ function onCardFlip(card: CardInterface) {
     flippedCards.push(card);
 
     if (flippedCards.length === 2) {
-      if (flippedCards[0].type === flippedCards[1].type) {
+      if (flippedCards[0].hobby === flippedCards[1].hobby) {
         setTimeout(() => {
           flippedCards[0].found = true;
           flippedCards[1].found = true;
           flippedCards = [];
 
-          console.log(allCardsFounds());
+          if (allCardsFounds()) {
+            alert('Yeah !! You won !')
+          }
         }, 700);
       } else {
         setTimeout(() => {

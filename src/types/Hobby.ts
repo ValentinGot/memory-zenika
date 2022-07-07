@@ -1,4 +1,4 @@
-export enum CardType {
+export enum Hobby {
   GOLF = 'golf',
   COOKING = 'cooking',
   PHOTOGRAPHY = 'photography',

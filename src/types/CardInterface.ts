@@ -1,10 +1,10 @@
 import { FunctionalComponent } from 'vue';
-import { CardType } from './CardType';
+import { Hobby } from './Hobby';
 import { CardVisibility } from './CardVisibility';
 
 export interface CardInterface {
   id: number;
-  type: CardType;
+  hobby: Hobby;
   visibility: CardVisibility;
   icon: FunctionalComponent;
   found: boolean;
