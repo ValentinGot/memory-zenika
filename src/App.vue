@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { computed, reactive } from 'vue';
-import { cardsDatasource } from './data/cards.datasource';
+import { reactive } from 'vue';
+import { randomizedCardsDatasource } from './data/cards.datasource';
 import { CardInterface } from './types/CardInterface';
 import { CardVisibility } from './types/CardVisibility';
 
-const cards = reactive<CardInterface[]>(cardsDatasource);
-
-const randomCards = computed(() => cards.sort(() => 0.5 - Math.random()));
+const cards = reactive<CardInterface[]>(randomizedCardsDatasource);
 
 let flippedCards: CardInterface[] = [];
 function onCardFlip(card: CardInterface) {
@@ -44,7 +42,7 @@ function allCardsFounds(): boolean {
 <template>
   <div class="cards">
     <Card
-      v-for="card of randomCards"
+      v-for="card of cards"
       :key="card.id"
       :card="card"
       @card-flip="onCardFlip"

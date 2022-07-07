@@ -35,3 +35,5 @@ export const cardsDatasource: CardInterface[] = [
   { id: 19, hobby: Hobby.CLEANING, visibility: CardVisibility.FRONT, icon: markRaw(IconCleaning), found: false },
   { id: 20, hobby: Hobby.CLEANING, visibility: CardVisibility.FRONT, icon: markRaw(IconCleaning), found: false }
 ];
+
+export const randomizedCardsDatasource = cardsDatasource.sort(() => 0.5 - Math.random());
