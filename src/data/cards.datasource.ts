@@ -1,17 +1,17 @@
 import { markRaw } from 'vue';
+import IconBoardGames from '~icons/mz/board-games';
+import IconCleaning from '~icons/mz/cleaning';
 import IconCooking from '~icons/mz/cooking';
 import IconCycling from '~icons/mz/cycling';
 import IconGolf from '~icons/mz/golf';
+import IconParty from '~icons/mz/party';
 import IconPhotography from '~icons/mz/photography';
 import IconReading from '~icons/mz/reading';
-import IconTraveler from '~icons/mz/traveler';
 import IconTech from '~icons/mz/tech';
-import IconParty from '~icons/mz/party';
-import IconBoardGames from '~icons/mz/board-games';
-import IconCleaning from '~icons/mz/cleaning';
+import IconTraveler from '~icons/mz/traveler';
 import { CardInterface } from '../types/CardInterface';
-import { Hobby } from '../types/Hobby';
 import { CardVisibility } from '../types/CardVisibility';
+import { Hobby } from '../types/Hobby';
 
 export const cardsDatasource: CardInterface[] = [
   { id: 1, hobby: Hobby.TECH, visibility: CardVisibility.FRONT, icon: markRaw(IconTech), found: false },

@@ -6,35 +6,35 @@ import { CardVisibility } from './types/CardVisibility';
 
 const cards = reactive<CardInterface[]>(randomizedCardsDatasource);
 
-let flippedCards: CardInterface[] = [];
+let _flippedCards: CardInterface[] = [];
+
 function onCardFlip(card: CardInterface) {
-  if (flippedCards.length < 2) {
-    card.visibility = card.visibility === CardVisibility.FRONT ? CardVisibility.BACK : CardVisibility.FRONT;
-    flippedCards.push(card);
+  if (_flippedCards.length < 2) {
+    _flippedCards.push(card);
+  }
 
-    if (flippedCards.length === 2) {
-      if (flippedCards[0].hobby === flippedCards[1].hobby) {
-        setTimeout(() => {
-          flippedCards[0].found = true;
-          flippedCards[1].found = true;
-          flippedCards = [];
+  if (_flippedCards.length === 2) {
+    if (_flippedCards[0].hobby === _flippedCards[1].hobby) {
+      setTimeout(() => {
+        _flippedCards[0].found = true;
+        _flippedCards[1].found = true;
+        _flippedCards = [];
 
-          if (allCardsFounds()) {
-            alert('Yeah !! You won !')
-          }
-        }, 700);
-      } else {
-        setTimeout(() => {
-          flippedCards[0].visibility = CardVisibility.FRONT;
-          flippedCards[1].visibility = CardVisibility.FRONT;
-          flippedCards = [];
-        }, 1000);
-      }
+        if (_allCardsFounds()) {
+          alert('Yeah !! You won !');
+        }
+      }, 700);
+    } else {
+      setTimeout(() => {
+        _flippedCards[0].visibility = CardVisibility.FRONT;
+        _flippedCards[1].visibility = CardVisibility.FRONT;
+        _flippedCards = [];
+      }, 1000);
     }
   }
 }
 
-function allCardsFounds(): boolean {
+function _allCardsFounds(): boolean {
   return cards.reduce((acc, card) => acc && card.found, true);
 }
 </script>
@@ -47,6 +47,10 @@ function allCardsFounds(): boolean {
       :card="card"
       @card-flip="onCardFlip"
     ></Card>
+  </div>
+
+  <div class="hobbies">
+
   </div>
 </template>
 
