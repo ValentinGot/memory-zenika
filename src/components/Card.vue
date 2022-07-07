@@ -32,9 +32,8 @@ function onCardFlip() {
 </template>
 
 <style scoped lang="scss">
-$not-found-elevation: 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .12), 0 1px 8px 0 rgba(0, 0, 0, .20);
-$found-elevation: 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12), 0 1px 3px 0 rgba(0, 0, 0, .20);
-$found-color: #DADADA;
+@import '../assets/css/abstracts/colors';
+@import '../assets/css/abstracts/mixins';
 
 .card {
   position: relative;
@@ -54,7 +53,7 @@ $found-color: #DADADA;
     transition: transform 1s ease, box-shadow .5s;
     backface-visibility: hidden; // We don't want to see the back part of the element
     border-radius: 4px;
-    box-shadow: $not-found-elevation;
+    @include elevation('3dp');
   }
 
   .card--side-front  {
@@ -94,20 +93,11 @@ $found-color: #DADADA;
 
     .card--side-front,
     .card--side-back {
-      box-shadow: $found-elevation;
+      @include elevation('1dp');
     }
 
-    svg :deep(.fill),
-    svg :deep(.stroke) {
-      transition: .5s all;
-    }
-
-    svg :deep(.fill) {
-      fill: $found-color;
-    }
-
-    svg :deep(.stroke) {
-      stroke: $found-color;
+    svg {
+      @include svg-color($disabled-color);
     }
 
   }

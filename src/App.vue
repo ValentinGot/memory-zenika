@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
+import Hobby from './components/Hobby.vue';
 import { randomizedCardsDatasource } from './data/cards.datasource';
+import { hobbiesDatasource } from './data/hobbies.datasource';
 import { CardInterface } from './types/CardInterface';
 import { CardVisibility } from './types/CardVisibility';
+import { HobbyInterface } from './types/HobbyInterface';
 
 const cards = reactive<CardInterface[]>(randomizedCardsDatasource);
+const hobbies = reactive<HobbyInterface[]>(hobbiesDatasource);
 
 let _flippedCards: CardInterface[] = [];
 
@@ -13,12 +17,13 @@ function onCardFlip(card: CardInterface) {
     card.visibility = CardVisibility.BACK;
     _flippedCards.push(card);
 
-  if (_flippedCards.length === 2) {
-    if (_flippedCards[0].hobby === _flippedCards[1].hobby) {
-      setTimeout(() => {
-        _flippedCards[0].found = true;
-        _flippedCards[1].found = true;
-        _flippedCards = [];
+    if (_flippedCards.length === 2) {
+      if (_flippedCards[0].hobby === _flippedCards[1].hobby) {
+        setTimeout(() => {
+          const hobby = hobbies.find((hobby) => hobby.hobby === _flippedCards[1].hobby);
+          if (hobby) {
+            hobby.enabled = true;
+          }
 
           _flippedCards[0].found = true;
           _flippedCards[1].found = true;
@@ -55,7 +60,11 @@ function _allCardsFounds(): boolean {
   </div>
 
   <div class="hobbies">
-
+    <Hobby
+      v-for="hobby of hobbies"
+      :id="hobby"
+      :hobby="hobby"
+    ></Hobby>
   </div>
 </template>
 
@@ -69,7 +78,7 @@ $gap: 20px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: $gap;
-  height: 100%;
+  height: calc(100vh - 80px);
   padding: $gap;
   overflow: hidden;
 
@@ -79,6 +88,33 @@ $gap: 20px;
 
   @include layout-bp('gt-lg') {
     grid-template-columns: repeat(5, 1fr);
+  }
+
+}
+
+.hobbies {
+  overflow-y: scroll;
+  display: flex;
+  max-width: 100vw;
+  padding: 0 20px 20px;
+  -ms-overflow-style: none;  // Hide scrollbar (IE, Edge)
+
+  &::-webkit-scrollbar {
+    display: none; // Hide scrollbar (Chrome, Safari, Opera)
+  }
+
+  @include layout-bp('gt-xs') {
+    justify-content: center;
+  }
+
+  .hobby {
+    flex-shrink: 0;
+    flex-basis: 60px;
+
+    & + .hobby {
+      margin-left: 15px;
+    }
+
   }
 
 }
