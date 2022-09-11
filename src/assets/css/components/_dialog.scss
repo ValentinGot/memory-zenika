@@ -1,0 +1,58 @@
+//----------------------------------------
+//  Dialog
+//----------------------------------------
+
+.dialog-overlay {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, .32);
+
+  &--visible {
+    display: flex;
+  }
+
+}
+
+.dialog {
+  max-width: 80vw;
+  padding: 24px;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  box-shadow: 0 11px 15px -7px #0003, 0 24px 38px 3px #00000024, 0 9px 46px 8px #0000001F;
+
+  &--title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0 24px;
+    font-weight: 500;
+
+    img {
+      height: 80px;
+      width: 80px;
+      border-radius: 50%;
+    }
+  }
+
+  &--content {
+
+    p {
+      margin: 0;
+    }
+
+  }
+
+  &--actions {
+    display: flex;
+    justify-content: center;
+    padding-top: 24px;
+  }
+
+}

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
-import Hobby from './components/Hobby.vue';
 import { randomizedCardsDatasource } from './data/cards.datasource';
 import { hobbiesDatasource } from './data/hobbies.datasource';
 import { CardInterface } from './types/CardInterface';
@@ -66,6 +65,8 @@ function _allCardsFounds(): boolean {
       :hobby="hobby"
     ></Hobby>
   </div>
+
+  <DialogWelcome :defaultVisible="true"></DialogWelcome>
 </template>
 
 <style scoped lang="scss">
