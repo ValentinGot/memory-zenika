@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { randomizedCardsDatasource } from './data/cards.datasource';
 import { hobbiesDatasource } from './data/hobbies.datasource';
 import { CardInterface } from './types/CardInterface';
@@ -8,6 +8,8 @@ import { HobbyInterface } from './types/HobbyInterface';
 
 const cards = reactive<CardInterface[]>(randomizedCardsDatasource);
 const hobbies = reactive<HobbyInterface[]>(hobbiesDatasource);
+const selectedHobby = ref<HobbyInterface>();
+const dialogHobbyVisible = ref<boolean>(false);
 
 let _flippedCards: CardInterface[] = [];
 
@@ -17,22 +19,33 @@ function onCardFlip(card: CardInterface) {
     _flippedCards.push(card);
 
     if (_flippedCards.length === 2) {
+      // Hobbies matched
       if (_flippedCards[0].hobby === _flippedCards[1].hobby) {
         setTimeout(() => {
-          const hobby = hobbies.find((hobby) => hobby.hobby === _flippedCards[1].hobby);
+
+          // Enable the found hobby in the footer
+          const hobby: HobbyInterface | undefined = hobbies.find((hobby) => hobby.hobby === _flippedCards[1].hobby);
           if (hobby) {
             hobby.enabled = true;
           }
 
+          // The found card should stay enabled
           _flippedCards[0].found = true;
           _flippedCards[1].found = true;
+
+          // Open the dialog
+          dialogHobbyVisible.value = true;
+          selectedHobby.value = hobby;
+
           _flippedCards = [];
 
+          // All card where found
           if (_allCardsFounds()) {
             alert('Yeah !! You won !');
           }
         }, 700);
       } else {
+        // Hobbies doesn't match
         setTimeout(() => {
           _flippedCards[0].visibility = CardVisibility.FRONT;
           _flippedCards[1].visibility = CardVisibility.FRONT;
@@ -41,6 +54,15 @@ function onCardFlip(card: CardInterface) {
       }
     }
   }
+}
+
+function onHobbyClicked(hobby: HobbyInterface) {
+  dialogHobbyVisible.value = true;
+  selectedHobby.value = hobby;
+}
+
+function onDialogHobbyVisibleChange(visible: boolean) {
+  dialogHobbyVisible.value = visible;
 }
 
 function _allCardsFounds(): boolean {
@@ -63,10 +85,16 @@ function _allCardsFounds(): boolean {
       v-for="hobby of hobbies"
       :id="hobby"
       :hobby="hobby"
+      @click="onHobbyClicked(hobby)"
     ></Hobby>
   </div>
 
   <DialogWelcome :defaultVisible="true"></DialogWelcome>
+  <DialogHobby
+    :visible="dialogHobbyVisible"
+    :hobby="selectedHobby"
+    @visibleChange="onDialogHobbyVisibleChange($event)"
+  ></DialogHobby>
 </template>
 
 <style scoped lang="scss">

@@ -6,6 +6,7 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Card: typeof import('./src/components/Card.vue')['default']
+    DialogHobby: typeof import('./src/components/DialogHobby.vue')['default']
     DialogWelcome: typeof import('./src/components/DialogWelcome.vue')['default']
     Hobby: typeof import('./src/components/Hobby.vue')['default']
   }
