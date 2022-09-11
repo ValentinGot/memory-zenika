@@ -1,0 +1,30 @@
+//----------------------------------------
+//  Button
+//----------------------------------------
+
+.button {
+  display: inline-block;
+  min-width: 64px;
+  line-height: 36px;
+  margin: 0;
+  padding: 0 16px;
+  user-select: none;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  transition: background 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  &--red {
+    color: #FFFFFF;
+    background-color: $primary-color;
+
+    &:hover,
+    &:focus {
+      background-color: darken($primary-color, 10%);
+    }
+
+  }
+
+}
