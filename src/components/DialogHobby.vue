@@ -1,18 +1,14 @@
 <script setup lang="ts">
-import { watch } from 'vue';
+import { defineEmits, defineProps } from 'vue';
 import { HobbyInterface } from '../types/HobbyInterface';
 
 const props = defineProps<{
   visible: boolean,
   hobby: HobbyInterface
-}>()
+}>();
 
 const emit = defineEmits({
   visibleChange: (_: boolean) => true
-})
-
-watch(() => props.hobby, () => {
-  console.log(props.hobby);
 });
 
 function getPhotoWithPath(image: string): string {

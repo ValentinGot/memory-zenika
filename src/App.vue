@@ -10,6 +10,8 @@ const cards = reactive<CardInterface[]>(randomizedCardsDatasource);
 const hobbies = reactive<HobbyInterface[]>(hobbiesDatasource);
 const selectedHobby = ref<HobbyInterface>();
 const dialogHobbyVisible = ref<boolean>(false);
+const dialogVictoryVisible = ref<boolean>(false);
+let nbHits = ref<number>(0);
 
 let _flippedCards: CardInterface[] = [];
 
@@ -19,6 +21,8 @@ function onCardFlip(card: CardInterface) {
     _flippedCards.push(card);
 
     if (_flippedCards.length === 2) {
+      nbHits.value = nbHits.value + 1;
+
       // Hobbies matched
       if (_flippedCards[0].hobby === _flippedCards[1].hobby) {
         setTimeout(() => {
@@ -38,11 +42,6 @@ function onCardFlip(card: CardInterface) {
           selectedHobby.value = hobby;
 
           _flippedCards = [];
-
-          // All card where found
-          if (_allCardsFounds()) {
-            alert('Yeah !! You won !');
-          }
         }, 700);
       } else {
         // Hobbies doesn't match
@@ -63,6 +62,11 @@ function onHobbyClicked(hobby: HobbyInterface) {
 
 function onDialogHobbyVisibleChange(visible: boolean) {
   dialogHobbyVisible.value = visible;
+
+  // All card where found
+  if (_allCardsFounds()) {
+    dialogVictoryVisible.value = true;
+  }
 }
 
 function _allCardsFounds(): boolean {
@@ -95,6 +99,10 @@ function _allCardsFounds(): boolean {
     :hobby="selectedHobby"
     @visibleChange="onDialogHobbyVisibleChange($event)"
   ></DialogHobby>
+  <DialogVictory
+    :visible="dialogVictoryVisible"
+    :nbHits="nbHits"
+  ></DialogVictory>
 </template>
 
 <style scoped lang="scss">
