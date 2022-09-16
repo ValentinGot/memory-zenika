@@ -5,7 +5,7 @@
 /// Set an SVG color
 ///
 /// @param {Color}  $width
-@mixin svg-color ($color) {
+@mixin svg-color ($color, $secondaryColor: '#FFFFF') {
   :deep(.fill),
   :deep(.stroke) {
     transition: .5s all;
@@ -18,6 +18,15 @@
   :deep(.stroke) {
     stroke: $color;
   }
+
+  :deep(.fill2) {
+    fill: $secondaryColor;
+  }
+
+  :deep(.stroke2) {
+    stroke: $secondaryColor;
+  }
+
 }
 
 /// Set the elevation using a box-shadow

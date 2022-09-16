@@ -40,7 +40,7 @@ const props = defineProps<{
     @include elevation('3dp');
 
     svg {
-      @include svg-color(#FFFFFF);
+      @include svg-color(#FFFFFF, $disabled-color);
     }
 
   }
