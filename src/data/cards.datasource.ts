@@ -36,5 +36,4 @@ export const cardsDatasource: CardInterface[] = [
   { id: 20, hobby: Hobby.PARTY, visibility: CardVisibility.FRONT, icon: markRaw(IconParty), found: false }
 ];
 
-// export const randomizedCardsDatasource = cardsDatasource.sort(() => 0.5 - Math.random());
-export const randomizedCardsDatasource = cardsDatasource;
+export const randomizedCardsDatasource = cardsDatasource.sort(() => 0.5 - Math.random());
