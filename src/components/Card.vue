@@ -23,7 +23,7 @@ function onCardFlip() {
     @click="onCardFlip()"
   >
     <div class="card--side-front">
-      <img src="src/assets/logo-zenika.png" alt="Zenika Logo" />
+      <img src="../assets/logo-zenika.png" alt="Zenika Logo" />
     </div>
     <div class="card--side-back">
       <Component :is="props.card.icon" />

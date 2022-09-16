@@ -28,6 +28,8 @@ function onClose() {
         <p>Ravi de tous vous rencontrer, je m'appelle Valentin, j'ai 31 ans, je suis developpeur front-end depuis 8 ans ...</p>
         <br />
         <p>Pffiou, même moi je m'emmerde en écrivant ça ... Si on passait plutôt à un registre un peu plus fun pour les présentations ?</p>
+        <br/>
+        <p>PS: En vrai j'aurais pu vous partager mes centres d'intérêt directement, mais pourquoi je serais le seul à trimer pour cette introduction ? 😈</p>
       </div>
 
       <div class="dialog--actions">
