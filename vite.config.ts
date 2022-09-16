@@ -17,6 +17,7 @@ export default defineConfig({
     Components({
       dts: true
     }),
-  ]
+  ],
+  base: '/memory-zenika/'
 })
 

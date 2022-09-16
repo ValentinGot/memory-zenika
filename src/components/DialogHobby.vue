@@ -16,7 +16,7 @@ watch(() => props.hobby, () => {
 });
 
 function getPhotoWithPath(image: string): string {
-  return `src/assets/photographs/${image}`;
+  return `../assets/photographs/${image}`;
 }
 
 function onClose() {
