@@ -16,7 +16,7 @@ watch(() => props.hobby, () => {
 });
 
 function getPhotoWithPath(image: string): string {
-  return `/assets/photographs/${image}`;
+  return `${import.meta.env.BASE_URL}photographs/${image}`;
 }
 
 function onClose() {

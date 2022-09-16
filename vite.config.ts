@@ -18,6 +18,6 @@ export default defineConfig({
       dts: true
     }),
   ],
-  base: '/memory-zenika/'
+  base: process.env.NODE_ENV === 'dev' ? '/' : '/memory-zenika/'
 })
 
